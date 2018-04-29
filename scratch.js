@@ -23,7 +23,7 @@
 		var fs = 50;
 		ctx.font = fs+px+ff;
 		var textWidth = ctx.measureText(text).width;
-		canvas.width = textWidth * 1.1;
+		canvas.width = Math.max(1, textWidth * 1.1);
 		canvas.height = fs*1;
 		var textY = canvas.height * 4/4;
 

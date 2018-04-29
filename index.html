@@ -105,8 +105,10 @@
 				
 				react("She has what?");
 				function go(){
-					react($("input").val());
-					$("input").val("");
+					if($("input").val()){
+						react($("input").val());
+						$("input").val("");
+					}
 				}
 				$("input").on("keydown", function(e){
 					if(e.keyCode === 13) go();
