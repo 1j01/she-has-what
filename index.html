@@ -93,7 +93,7 @@
 							$toGIF.attr("title", title + " (Rendering GIF: "+(~~(p * 100))+"%)");
 						});
 						
-						$toGIF.on("mouseover", function(){
+						$toGIF.one("mouseover", function(){
 							gif.render();
 							$toGIF.addClass("rendering")
 						});
