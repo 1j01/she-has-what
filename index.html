@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
+		<meta charset="utf-8">
 		<title>Doc Scratch Reaction GIF Generator</title>
 		<script src="lib/jquery.js"></script>
 		<script src="lib/gif.js/gif.js"></script>
@@ -54,7 +55,8 @@
 				function react(text){
 					var $div = $("<div>").appendTo("#log");
 					// TODO: progress bar instead of just colored icon button with hover text
-					var $toGIF = $("<a class='save recording'><img src='img/save.png' width=16 height=16/></a>").appendTo($div);
+					// Note: alt='' not alt='save' because the info is provided via title on the link
+					var $toGIF = $("<a class='save recording'><img src='img/save.png' width=16 height=16 alt=''/></a>").appendTo($div);
 					var $reaction = $DocScratchReaction(text).appendTo($div);
 					
 					
@@ -124,7 +126,7 @@
 			<input autofocus type="text"/>
 			<button id="pester">PESTER!!!!!!!</button>
 		</div>
-		<img src="img/scratch.gif" width="650" height="450"/>
+		<img src="img/scratch.gif" width="650" height="450" alt="Lightning eminates from Doc Scratch because he's all angry"/>
 		<p style="color:white">SECRET TEXT omg...</p>
 		<p style="color:transparent">SECRETER TEXT OMGOMG.....</p>
 		<p style="color:transparent;opacity:0">MEGA s3CR3t TEXT OMGOMG......</p>
