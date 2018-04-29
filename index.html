@@ -1,136 +1,150 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>Doc Scratch Reaction GIF Generator</title>
-		<script src="lib/jquery.js"></script>
-		<script src="lib/gif.js/gif.js"></script>
-		<script src="scratch.js"></script>
-		<style>
-			body {
-				text-align: center;
-				background: #EEE;
-				color: black;
-			}
-			@font-face {
-				font-family: fontstuck;
-				src: url('font/FontStuck-Extended.ttf');
-				/* TODO: other formats like woff for Firefox etc. */
-			}
-			* {
-				font-family: fontstuck;
-			}
-			#inputs > * {
-				font-size: 30px;
-			}
-			#log {
-				text-align: start;
-			}
-			#log * {
-				vertical-align: middle;
-			}
-			img {
-				margin: 15px;
-			}
-			.save {
-				padding: 3px;
-				margin: 10px;
-			}
-			.save.recording {
-				opacity: 0.5;
-				cursor: wait;
-				background: rgba(255, 0, 0, 0.3);
-			}
-			.save.rendering {
-				opacity: 0.5;
-				cursor: progress;
-				background: yellow;
-			}
-			.save.done {
-				background: lime;
-			}
-		</style>
-		<script>
-			$(function(){
-				function react(text){
-					var $div = $("<div>").appendTo("#log");
-					// TODO: progress bar instead of just colored icon button with hover text
-					// Note: alt='' not alt='save' because the info is provided via title on the link
-					var $toGIF = $("<a class='save recording'><img src='img/save.png' width=16 height=16 alt=''/></a>").appendTo($div);
-					var $reaction = $DocScratchReaction(text).appendTo($div);
-					
-					
-					var gif = new GIF({
-						workerScript: "lib/gif.js/gif.worker.js",
-						workers: 2,
-						quality: 10,
-						background: "#EEE"
-					});
-					
-					var f = 0;
-					var title = "Save as animated GIF";
-					$reaction.on("frame", function(e, canvas, interval){
-						gif.addFrame(canvas, {delay: interval, copy: true});
-						$toGIF.attr("title", title + " (Recording frames: "+(++f)+"/100)");
-					});
-					
-					
-					$reaction.on("animation-complete", function(e){
-						$toGIF.removeClass("recording");
-						
-						gif.on("finished", function(blob){
-							$toGIF.removeClass("rendering");
-							$toGIF.addClass("done");
-							$toGIF.attr("href", URL.createObjectURL(blob));
-							$toGIF.attr("download", text.toUpperCase()
-								.replace(/[\W_]/g, "-")
-								.replace(/-+/g, "-")
-								.replace(/(^-+)|(-+$)/g, "")
-								+ ".GIF"
-							);
-							$toGIF.attr("title", title);
-						});
-						
-						gif.on("progress", function(p){
-							$toGIF.attr("title", title + " (Rendering GIF: "+(~~(p * 100))+"%)");
-						});
-						
-						$toGIF.one("mouseover", function(){
-							gif.render();
-							$toGIF.addClass("rendering")
-						});
-						
-					});
-					
-					
-				}
-				
-				react("She has what?");
-				function go(){
-					if($("input").val()){
-						react($("input").val());
-						$("input").val("");
-					}
-				}
-				$("input").on("keydown", function(e){
-					if(e.keyCode === 13) go();
+
+<head>
+	<meta charset="utf-8">
+	<title>Doc Scratch Reaction GIF Generator</title>
+	<script src="lib/jquery.js"></script>
+	<script src="lib/gif.js/gif.js"></script>
+	<script src="scratch.js"></script>
+	<style>
+		body {
+			text-align: center;
+			background: #EEE;
+			color: black;
+		}
+
+		@font-face {
+			font-family: fontstuck;
+			src: url('font/FontStuck-Extended.ttf');
+			/* TODO: other formats like woff for Firefox etc. */
+		}
+
+		* {
+			font-family: fontstuck;
+		}
+
+		#inputs>* {
+			font-size: 30px;
+		}
+
+		#log {
+			text-align: start;
+		}
+
+		#log * {
+			vertical-align: middle;
+		}
+
+		img {
+			margin: 15px;
+		}
+
+		.save {
+			padding: 3px;
+			margin: 10px;
+		}
+
+		.save.recording {
+			opacity: 0.5;
+			cursor: wait;
+			background: rgba(255, 0, 0, 0.3);
+		}
+
+		.save.rendering {
+			opacity: 0.5;
+			cursor: progress;
+			background: yellow;
+		}
+
+		.save.done {
+			background: lime;
+		}
+	</style>
+	<script>
+		$(function () {
+			function react(text) {
+				var $div = $("<div>").appendTo("#log");
+				// TODO: progress bar instead of just colored icon button with hover text
+				// Note: alt='' not alt='save' because the info is provided via title on the link
+				var $toGIF = $("<a class='save recording'><img src='img/save.png' width=16 height=16 alt=''/></a>").appendTo($div);
+				var $reaction = $DocScratchReaction(text).appendTo($div);
+
+
+				var gif = new GIF({
+					workerScript: "lib/gif.js/gif.worker.js",
+					workers: 2,
+					quality: 10,
+					background: "#EEE"
 				});
-				$("#pester").on("click", go);
+
+				var f = 0;
+				var title = "Save as animated GIF";
+				$reaction.on("frame", function (e, canvas, interval) {
+					gif.addFrame(canvas, { delay: interval, copy: true });
+					$toGIF.attr("title", title + " (Recording frames: " + (++f) + "/100)");
+				});
+
+
+				$reaction.on("animation-complete", function (e) {
+					$toGIF.removeClass("recording");
+
+					gif.on("finished", function (blob) {
+						$toGIF.removeClass("rendering");
+						$toGIF.addClass("done");
+						$toGIF.attr("href", URL.createObjectURL(blob));
+						$toGIF.attr("download", text.toUpperCase()
+							.replace(/[\W_]/g, "-")
+							.replace(/-+/g, "-")
+							.replace(/(^-+)|(-+$)/g, "")
+							+ ".GIF"
+						);
+						$toGIF.attr("title", title);
+					});
+
+					gif.on("progress", function (p) {
+						$toGIF.attr("title", title + " (Rendering GIF: " + (~~(p * 100)) + "%)");
+					});
+
+					$toGIF.one("mouseover", function () {
+						gif.render();
+						$toGIF.addClass("rendering")
+					});
+
+				});
+
+
+			}
+
+			react("She has what?");
+			function go() {
+				if ($("input").val()) {
+					react($("input").val());
+					$("input").val("");
+				}
+			}
+			$("input").on("keydown", function (e) {
+				if (e.keyCode === 13) go();
 			});
-		</script>
-	</head>
-	<body>
-		<h1><span style="color:#2ed73a">D<span style="color:#e0e0e0">o</span>c Scratch</span> Reaction GIF Generator</h1>
-		<div id="log"></div>
-		<div id="inputs">
-			<input autofocus type="text"/>
-			<button id="pester">PESTER!!!!!!!</button>
-		</div>
-		<img src="img/scratch.gif" width="650" height="450" alt="Lightning eminates from Doc Scratch because he's all angry"/>
-		<p style="color:white">SECRET TEXT omg...</p>
-		<p style="color:transparent">SECRETER TEXT OMGOMG.....</p>
-		<p style="color:transparent;opacity:0">MEGA s3CR3t TEXT OMGOMG......</p>
-		<p style="display:none">ULTRA SECRET TEXT OMGOMGOMG...</p>
-		<!-- ULTIMATE SECRET TEXT OMGWTFBBQ -->
-	</body>
+			$("#pester").on("click", go);
+		});
+	</script>
+</head>
+
+<body>
+	<h1>
+		<span style="color:#2ed73a">D<span style="color:#e0e0e0">o</span>c Scratch</span> Reaction GIF Generator</h1>
+	<div id="log"></div>
+	<div id="inputs">
+		<input autofocus type="text" />
+		<button id="pester">PESTER!!!!!!!</button>
+	</div>
+	<img src="img/scratch.gif" width="650" height="450" alt="Lightning eminates from Doc Scratch because he's all angry" />
+	<p style="color:white">SECRET TEXT omg...</p>
+	<p style="color:transparent">SECRETER TEXT OMGOMG.....</p>
+	<p style="color:transparent;opacity:0">MEGA s3CR3t TEXT OMGOMG......</p>
+	<p style="display:none">ULTRA SECRET TEXT OMGOMGOMG...</p>
+	<!-- ULTIMATE SECRET TEXT OMGWTFBBQ -->
+</body>
+
 </html>
