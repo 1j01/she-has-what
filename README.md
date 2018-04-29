@@ -1,9 +1,9 @@
 
-# SHE HAS WHAT? [Doc Scratch Reaction GIF Generator][Reaction GIF Generator]
+# SHE HAS WHAT? [Doc Scratch Reaction GIF Generator][Reaction GIF Generator app]
 
 **EPILEPSY WARNING: huge flashing GIFs on these links**
 
-[Generate text GIFs][Reaction GIF Generator] in the style of [an astounded and furious Doc Scratch][angry Doc Scratch].
+[Generate text GIFs][Reaction GIF Generator app] in the style of [an astounded and furious Doc Scratch][angry Doc Scratch].
 
 ![SHE HAS WHAT? says Doc Scratch](img/generated/SHE-HAS-WHAT.GIF)
 
@@ -14,9 +14,13 @@
 - [SBAHJifier][]: Sweet Bro and Hella Jeff-ificationatize any web page
 - [Pesterchum][]: Recreation of the Homestuck "Pesterchum 6.0" UI
 
-## Dev
+## Dev Setup
 
 You just need an HTTP server, so [gif.js][] can work, e.g. `python -m SimpleHTTPServer`
+
+## License
+
+The code is licensed under the MIT License. See [LICENSE](LICENSE).
 
 [MSPA]: http://www.mspaintadventures.com/
 [angry Doc Scratch]: https://www.homestuck.com/story/2263
