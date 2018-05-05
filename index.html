@@ -106,6 +106,7 @@
 						$toGIF.attr("title", title + " (Rendering GIF: " + (~~(p * 100)) + "%)");
 					});
 
+					// TODO: accept mouseover earlier and maybe click as well.. really just change it entirely
 					$toGIF.one("mouseover", function () {
 						gif.render();
 						$toGIF.addClass("rendering")
