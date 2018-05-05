@@ -22,9 +22,7 @@ You just need an HTTP server, so [gif.js][] can work, e.g. `python -m SimpleHTTP
 
 The code is licensed under the MIT License. See [LICENSE](LICENSE).
 
-[MSPA]: http://www.mspaintadventures.com/
 [angry Doc Scratch]: https://www.homestuck.com/story/2263
-[Reaction GIF Generator]: https://github.com/1j01/she-has-what?
 [Reaction GIF Generator app]: https://1j01.github.io/she-has-what?
 [gif.js]: https://jnordberg.github.io/gif.js/
 [SBAHJifier]: https://github.com/1j01/sbahjifier
