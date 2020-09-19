@@ -7,7 +7,7 @@
 	};
 	fontDummy.src = "font/FontStuck-Extended.ttf";
 
-	$DocScratchReaction = function (text) {
+	$DocScratchReaction = function (text, color) {
 		text = text.toUpperCase();
 		var t = 0;
 
@@ -70,7 +70,7 @@
 			ctx.font = fs + px + ff;
 			ctx.textBaseline = "bottom";
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			ctx.fillStyle = "#eee";
+			ctx.fillStyle = color;
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 			//raylike shadowy stuff
